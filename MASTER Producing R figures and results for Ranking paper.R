@@ -1,7 +1,7 @@
 # if not already installed 
 install.packages("fGarch")
 library("fGarch")
-source('~/Google Drive/_mydrive/R projects/Ranking/Functions Needed in Ranking.R')
+source('Functions Needed in Ranking.R')
 pdf("Figures 2 to 4.pdf")
 
 ###############################################
