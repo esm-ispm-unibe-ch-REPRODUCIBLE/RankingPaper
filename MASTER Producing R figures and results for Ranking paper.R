@@ -2,8 +2,17 @@
 install.packages("fGarch")
 library("fGarch")
 source('Functions Needed in Ranking.R')
-pdf("Figures 2 to 4.pdf")
+pdf("Figures 1 to 4.pdf")
 
+###############################################
+#Producing Figure 1 ###########################
+###############################################
+
+par(mfrow=c(1,1))
+
+plotNdensity.fun(c(2.1,1.7,2.1),c(0.2,0.5,0.1), maxYaxis=4.5, xaxisrange=c(0.5,3.25),  cols=1:3)
+legend(0.65,4.7, box.lty=0, c(expression(mu["Α"]%~%N(2.1,0.2)),expression(mu["B"]%~%N(1.7,0.5)),expression(mu["C"]%~%N(2.1,0.1))), lty = rep(1,3),  col=1:3,lwd=2)
+abline(v=2.5,lty=3)
 ###############################################
 #Producing Figure 2 ###########################
 ###############################################
