@@ -2,7 +2,7 @@
 install.packages("fGarch")
 library("fGarch")
 source('Functions Needed in Ranking.R')
-pdf("Figures 1 to 4.pdf")
+pdf("Figures 1 to 3.pdf")
 
 ###############################################
 #Producing Figure 1 ###########################
@@ -52,37 +52,6 @@ cat("\n \n TABLE 1 \n \n")
 print(Table1)
 sink()
 
-###############################################
-#Producing Figure 3 ###########################
-###############################################
-
-par(mfcol=c(3,2))
-plotNdensity.fun(c(3,1,1,1),c(1,1,1.03,1.05), maxYaxis=0.4, xaxisrange=c(-4,6),cols=1:4)
-abline(v=1)
-legend(-4,0.4, c("P~N(3,1)","A~N(1,1)","B~N(1,1)","C~N(1,1)"), lty=1,col=1:4,cex=0.8)  
-title("Scenario i")
-plotNdensity.fun(c(3,1,1,1),c(1,1,1.02,2), maxYaxis=0.4, xaxisrange=c(-4,6),cols=1:4)
-abline(v=1)
-legend(-4,0.4, c("P~N(3,1)","A~N(1,1)","B~N(1,1)","C~N(1,2)"),lty=1,col=1:4,cex=0.8)  
-title("Scenario ii")
-plotNdensity.fun(c(3,1,1,1),c(1,1,1.02,5), maxYaxis=0.4, xaxisrange=c(-4,6),cols=1:4)
-abline(v=1)
-legend(-4,0.4, c("P~N(3,1)","A~N(1,1)","B~N(1,1)","C~N(1,5)"), lty=1,col=1:4,cex=0.8)  
-title("Scenario iii")
-# --
-
-plotNdensity.fun(c(2,1,1,1),c(1,1,1.02,2), maxYaxis=0.4, xaxisrange=c(-4,6),cols=1:4)
-abline(v=1)
-legend(3,0.4, c("P~N(2,1)","A~N(1,1)","B~N(1,1)","C~N(1,2)"), lty=1,col=1:4,cex=0.8) 
-title("Scenario iv")
-plotNdensity.fun(c(-2,1,1,1),c(1,1,1.02,2), maxYaxis=0.4, xaxisrange=c(-4,6),cols=1:4)
-abline(v=1)
-legend(3,0.4, c("P~N(-2,1)","A~N(1,1)","B~N(1,1)","C~N(1,2)"), lty=1,col=1:4,cex=0.8) 
-title("Scenario v")
-plotNdensity.fun(c(-3,1,1,1),c(1,1,1.02,2), maxYaxis=0.4, xaxisrange=c(-4,6),cols=1:4)
-abline(v=1)
-legend(3,0.4, c("P~N(-3,1)","A~N(1,1)","B~N(1,1)","C~N(1,2)"), lty=1,col=1:4,cex=0.8) 
-title("Scenario vi")
 
 ###############################################
 #Producing Table 2  ###########################
@@ -122,7 +91,7 @@ a<-rbind(relativeranking.fun(c(10,1,2,3),c(3,3,3,3),lowbest=T)$SUCRA,
          relativeranking.fun(c(10,1,2,3),c(3,10,3,3),lowbest=T)$SUCRA,
          relativeranking.fun(c(10,1,2,3),c(3,15,3,3),lowbest=T)$SUCRA,
          relativeranking.fun(c(10,1,2,3),c(3,20,3,3),lowbest=T)$SUCRA)
-Table3<-round(a,2)
+Table3<-round(a*100,1)
 sink("Table 3.txt")
 cat("\n \n TABLE 3 \n \n")
 print(Table3)
@@ -132,7 +101,7 @@ sink()
 
 
 ###############################################
-#Producing Figure 4 ###########################
+#Producing Figure 3 ###########################
 ###############################################
 
 Sucras.App<-c()
@@ -147,21 +116,23 @@ MeanRank.App<-rbind(MeanRank.App,a$MeanRank)
 }
 
 par(mfrow=c(2,1))
-plot(c(1,10),c(0,1),type="n", xlab="SD in treatment C",ylab="SUCRA")
-lines(seq(1,10,0.5),Sucras.App[,1], lty=1,col=1, lwd=2)
-lines(seq(1,10,0.5),Sucras.App[,2], lty=1,col=2, lwd=2)
-lines(seq(1,10,0.5),Sucras.App[,3], lty=1,col=3, lwd=2)
-lines(seq(1,10,0.5),Sucras.App[,4], lty=1,col=4, lwd=2)
+plot(c(1,10),c(0,1),type="n", xlab="Uncertainty (SD) in treatment C",ylab="SUCRA",yticks=c(0,0.5,1),yaxt = "n")
+axis(2, at = c(0,0.25,0.5,0.75,1), labels = c(0,0.25,0.5,0.75,1))
+lines(seq(1,10,0.5),Sucras.App[,1], lty=1,col=1, lwd=3)
+lines(seq(1,10,0.5),Sucras.App[,2], lty=1,col=2, lwd=3)
+lines(seq(1,10,0.5),Sucras.App[,3], lty=1,col=3, lwd=3)
+lines(seq(1,10,0.5),Sucras.App[,4], lty=1,col=4, lwd=3)
 abline(v=7.5)
-legend(0.7,0.95, c("P","A","B","C" ), lty=1, col = 1:4, lwd=rep(2,4),cex=0.6) 
+legend(2,0.8, c("P","A","B","C" ), lty=1, col = 1:4, lwd=rep(2,4),cex=1,bty="n") 
 
-plot(c(1,10),c(0,1),type="n", xlab="SD in treatment C",ylab="P(best outcome)")
-lines(seq(1,10,0.5),Pbest.App[,1], lty=1,col=1, lwd=2)
-lines(seq(1,10,0.5),Pbest.App[,2], lty=1,col=2, lwd=2)
-lines(seq(1,10,0.5),Pbest.App[,3], lty=1,col=3,lwd=2)
-lines(seq(1,10,0.5),Pbest.App[,4], lty=1,col=4, lwd=2)
-abline(v=2)
-legend(0.7,0.95, c("P","A","B","C" ), lty=1, col = 1:4, lwd=rep(2,4),cex=0.6) 
+plot(c(1,10),c(0,1),type="n", xlab="Uncertainty (SD) in treatment C",ylab=expression(p[iBV]),yaxt = "n")
+axis(2, at = c(0,0.25,0.5,0.75,1), labels = c(0,0.25,0.5,0.75,1))
+lines(seq(1,10,0.5),Pbest.App[,1], lty=1,col=1, lwd=3)
+lines(seq(1,10,0.5),Pbest.App[,2], lty=1,col=2, lwd=3)
+lines(seq(1,10,0.5),Pbest.App[,3], lty=1,col=3,lwd=3)
+lines(seq(1,10,0.5),Pbest.App[,4], lty=1,col=4, lwd=3)
+abline(v=1.7)
+legend(2,0.8, c("P","A","B","C" ), lty=1, col = 1:4, lwd=rep(2,4),cex=1,bty="n") 
 
 dev.off()
 
