@@ -26,10 +26,7 @@ plotNdensity.fun(c(10,1,1,1),c(3,1,3,5), maxYaxis=0.4, xaxisrange=c(-8,15),  col
 abline(v=1)
 legend(-8,0.4, c("P~N(10,3)","A~N(1,1)","B~N(1,3)","C~N(1,5)"), lty = rep(1,4),  col=1:4,lwd=2) 
 title("Scenario 2")
-plotNdensity.fun(c(10,1,1,1),c(3,3,3,3),xi=c(1,0.5,2,2.5), maxYaxis=0.4, xaxisrange=c(-8,15),  cols=1:4)
-abline(v=1)
-legend(-8,0.4, c("P~N(10,3)","A~N(1,3,0.5)","B~N(1,3,2)","C~N(1,3,2.5)"), lty = rep(1,4),  col=1:4,lwd=2) 
-title("Scenario 3")
+
 
 
 ###############################################
